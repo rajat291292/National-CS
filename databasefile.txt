@@ -1,0 +1,283 @@
+
+-- --------------------------------------------------
+-- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
+-- --------------------------------------------------
+-- Date Created: 09/15/2017 11:29:50
+-- Generated from EDMX file: C:\Users\nk104329\source\repos\Final_National\Final_National\Models\Model1.edmx
+-- --------------------------------------------------
+
+SET QUOTED_IDENTIFIER OFF;
+GO
+USE [casestudy];
+GO
+IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
+GO
+
+-- --------------------------------------------------
+-- Dropping existing FOREIGN KEY constraints
+-- --------------------------------------------------
+
+IF OBJECT_ID(N'[casestudyModelStoreContainer].[FK__login__login_id__34C8D9D1]', 'F') IS NOT NULL
+    ALTER TABLE [casestudyModelStoreContainer].[login] DROP CONSTRAINT [FK__login__login_id__34C8D9D1];
+GO
+IF OBJECT_ID(N'[dbo].[FK__users__users_typ__32E0915F]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[users] DROP CONSTRAINT [FK__users__users_typ__32E0915F];
+GO
+
+-- --------------------------------------------------
+-- Dropping existing tables
+-- --------------------------------------------------
+
+IF OBJECT_ID(N'[dbo].[act_category]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[act_category];
+GO
+IF OBJECT_ID(N'[dbo].[Admin]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Admin];
+GO
+IF OBJECT_ID(N'[dbo].[Approver]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Approver];
+GO
+IF OBJECT_ID(N'[dbo].[LoginCredentials]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[LoginCredentials];
+GO
+IF OBJECT_ID(N'[dbo].[req_status]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[req_status];
+GO
+IF OBJECT_ID(N'[dbo].[store]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[store];
+GO
+IF OBJECT_ID(N'[dbo].[Store_User]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Store_User];
+GO
+IF OBJECT_ID(N'[dbo].[StoreUserLogin]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[StoreUserLogin];
+GO
+IF OBJECT_ID(N'[dbo].[task]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[task];
+GO
+IF OBJECT_ID(N'[dbo].[user_type]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[user_type];
+GO
+IF OBJECT_ID(N'[dbo].[users]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[users];
+GO
+IF OBJECT_ID(N'[casestudyModelStoreContainer].[login]', 'U') IS NOT NULL
+    DROP TABLE [casestudyModelStoreContainer].[login];
+GO
+
+-- --------------------------------------------------
+-- Creating all tables
+-- --------------------------------------------------
+
+-- Creating table 'act_category'
+CREATE TABLE [dbo].[act_category] (
+    [act_id] int IDENTITY(1,1) NOT NULL,
+    [cat_descrptn] varchar(max)  NULL
+);
+GO
+
+-- Creating table 'req_status'
+CREATE TABLE [dbo].[req_status] (
+    [req_id] int IDENTITY(1,1) NOT NULL,
+    [req_descrptn] varchar(max)  NULL
+);
+GO
+
+-- Creating table 'tasks'
+CREATE TABLE [dbo].[tasks] (
+    [Task_Id] int IDENTITY(1,1) NOT NULL,
+    [Title] varchar(50)  NOT NULL,
+    [Description1] varchar(100)  NOT NULL,
+    [From_date] datetime  NOT NULL,
+    [To_date] datetime  NOT NULL,
+    [Category] varchar(50)  NOT NULL,
+    [Store] varchar(50)  NOT NULL,
+    [Status] varchar(50)  NULL,
+    [Task_Progress] varchar(50)  NULL
+);
+GO
+
+-- Creating table 'user_type'
+CREATE TABLE [dbo].[user_type] (
+    [user_type_id] int IDENTITY(1,1) NOT NULL,
+    [descriptn] varchar(max)  NULL
+);
+GO
+
+-- Creating table 'users'
+CREATE TABLE [dbo].[users] (
+    [users_id] int IDENTITY(1,1) NOT NULL,
+    [name] varchar(50)  NULL,
+    [users_type_id] int  NULL
+);
+GO
+
+-- Creating table 'logins'
+CREATE TABLE [dbo].[logins] (
+    [username] varchar(50)  NOT NULL,
+    [passwords] varchar(50)  NOT NULL,
+    [login_id] int  NULL
+);
+GO
+
+-- Creating table 'LoginCredentials'
+CREATE TABLE [dbo].[LoginCredentials] (
+    [User_ID] int IDENTITY(1,1) NOT NULL,
+    [Username] varchar(50)  NOT NULL,
+    [Passwords] varchar(50)  NOT NULL,
+    [User_type] varchar(50)  NOT NULL
+);
+GO
+
+-- Creating table 'StoreUserLogins'
+CREATE TABLE [dbo].[StoreUserLogins] (
+    [Store_ID] int IDENTITY(1,1) NOT NULL,
+    [StoreUser] varchar(50)  NULL,
+    [StorePass] varchar(50)  NULL
+);
+GO
+
+-- Creating table 'Admins'
+CREATE TABLE [dbo].[Admins] (
+    [User_ID] int IDENTITY(1,1) NOT NULL,
+    [Username] varchar(50)  NOT NULL,
+    [Passwords] varchar(50)  NOT NULL
+);
+GO
+
+-- Creating table 'Store_User'
+CREATE TABLE [dbo].[Store_User] (
+    [User_ID] int IDENTITY(1,1) NOT NULL,
+    [Username] varchar(50)  NOT NULL,
+    [Passwords] varchar(50)  NOT NULL
+);
+GO
+
+-- Creating table 'stores'
+CREATE TABLE [dbo].[stores] (
+    [s_id] int IDENTITY(1,1) NOT NULL,
+    [s_detail] varchar(max)  NULL
+);
+GO
+
+-- Creating table 'Approvers'
+CREATE TABLE [dbo].[Approvers] (
+    [User_ID] int IDENTITY(1,1) NOT NULL,
+    [Username] varchar(50)  NOT NULL,
+    [Passwords] varchar(50)  NOT NULL
+);
+GO
+
+-- --------------------------------------------------
+-- Creating all PRIMARY KEY constraints
+-- --------------------------------------------------
+
+-- Creating primary key on [act_id] in table 'act_category'
+ALTER TABLE [dbo].[act_category]
+ADD CONSTRAINT [PK_act_category]
+    PRIMARY KEY CLUSTERED ([act_id] ASC);
+GO
+
+-- Creating primary key on [req_id] in table 'req_status'
+ALTER TABLE [dbo].[req_status]
+ADD CONSTRAINT [PK_req_status]
+    PRIMARY KEY CLUSTERED ([req_id] ASC);
+GO
+
+-- Creating primary key on [Task_Id] in table 'tasks'
+ALTER TABLE [dbo].[tasks]
+ADD CONSTRAINT [PK_tasks]
+    PRIMARY KEY CLUSTERED ([Task_Id] ASC);
+GO
+
+-- Creating primary key on [user_type_id] in table 'user_type'
+ALTER TABLE [dbo].[user_type]
+ADD CONSTRAINT [PK_user_type]
+    PRIMARY KEY CLUSTERED ([user_type_id] ASC);
+GO
+
+-- Creating primary key on [users_id] in table 'users'
+ALTER TABLE [dbo].[users]
+ADD CONSTRAINT [PK_users]
+    PRIMARY KEY CLUSTERED ([users_id] ASC);
+GO
+
+-- Creating primary key on [username], [passwords] in table 'logins'
+ALTER TABLE [dbo].[logins]
+ADD CONSTRAINT [PK_logins]
+    PRIMARY KEY CLUSTERED ([username], [passwords] ASC);
+GO
+
+-- Creating primary key on [User_ID] in table 'LoginCredentials'
+ALTER TABLE [dbo].[LoginCredentials]
+ADD CONSTRAINT [PK_LoginCredentials]
+    PRIMARY KEY CLUSTERED ([User_ID] ASC);
+GO
+
+-- Creating primary key on [Store_ID] in table 'StoreUserLogins'
+ALTER TABLE [dbo].[StoreUserLogins]
+ADD CONSTRAINT [PK_StoreUserLogins]
+    PRIMARY KEY CLUSTERED ([Store_ID] ASC);
+GO
+
+-- Creating primary key on [User_ID] in table 'Admins'
+ALTER TABLE [dbo].[Admins]
+ADD CONSTRAINT [PK_Admins]
+    PRIMARY KEY CLUSTERED ([User_ID] ASC);
+GO
+
+-- Creating primary key on [User_ID] in table 'Store_User'
+ALTER TABLE [dbo].[Store_User]
+ADD CONSTRAINT [PK_Store_User]
+    PRIMARY KEY CLUSTERED ([User_ID] ASC);
+GO
+
+-- Creating primary key on [s_id] in table 'stores'
+ALTER TABLE [dbo].[stores]
+ADD CONSTRAINT [PK_stores]
+    PRIMARY KEY CLUSTERED ([s_id] ASC);
+GO
+
+-- Creating primary key on [User_ID] in table 'Approvers'
+ALTER TABLE [dbo].[Approvers]
+ADD CONSTRAINT [PK_Approvers]
+    PRIMARY KEY CLUSTERED ([User_ID] ASC);
+GO
+
+-- --------------------------------------------------
+-- Creating all FOREIGN KEY constraints
+-- --------------------------------------------------
+
+-- Creating foreign key on [users_type_id] in table 'users'
+ALTER TABLE [dbo].[users]
+ADD CONSTRAINT [FK__users__users_typ__32E0915F]
+    FOREIGN KEY ([users_type_id])
+    REFERENCES [dbo].[user_type]
+        ([user_type_id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK__users__users_typ__32E0915F'
+CREATE INDEX [IX_FK__users__users_typ__32E0915F]
+ON [dbo].[users]
+    ([users_type_id]);
+GO
+
+-- Creating foreign key on [login_id] in table 'logins'
+ALTER TABLE [dbo].[logins]
+ADD CONSTRAINT [FK__login__login_id__34C8D9D1]
+    FOREIGN KEY ([login_id])
+    REFERENCES [dbo].[users]
+        ([users_id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK__login__login_id__34C8D9D1'
+CREATE INDEX [IX_FK__login__login_id__34C8D9D1]
+ON [dbo].[logins]
+    ([login_id]);
+GO
+
+-- --------------------------------------------------
+-- Script has ended
+-- --------------------------------------------------
